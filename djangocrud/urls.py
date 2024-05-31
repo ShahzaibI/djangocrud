@@ -17,9 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from home.views import *
+from vege.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('', home, name='home'),
     path('about/', about, name='about'),
     path('contact/', contact, name='contact'),
     path('admin/', admin.site.urls),
+
+    path('receipe/create/', create, name='createReceipe'),
+    path('receipe/delete/<id>/', delete, name='deleteReceipe'),
+    path('receipe/update/<id>/', update, name='updateReceipe'),
 ]
+# For image
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
