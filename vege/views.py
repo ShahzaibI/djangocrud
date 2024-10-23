@@ -3,6 +3,8 @@ from vege.models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Q
 # Create your views here.
 
 @login_required(login_url = "/login/")
@@ -89,3 +91,21 @@ def register(request):
         messages.info(request, "Account created successfully.")
         return redirect('/login/')
     return render(request, 'register.html')
+
+@login_required(login_url = "/login/")
+def get_students(request):
+    students = Student.objects.all()
+    search = ''
+    if(request.GET.get('search')):
+        search = request.GET.get('search')
+        students = students.filter(
+            Q(student_name__icontains = search) |
+            Q(department__department__icontains = search) |
+            Q(student_id__student_id__icontains = search) |
+            Q(student_email__icontains = search) |
+            Q(student_age__icontains = search)
+        )
+    paginator = Paginator(students, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'report/students.html', {'students' : page_obj, 'search': search})
