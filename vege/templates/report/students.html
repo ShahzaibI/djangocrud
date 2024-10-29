@@ -24,16 +24,25 @@
                 </tr>
             </thead>
             <tbody>
-                {% for student in students%}
+                {% if students%}
+                    {% for student in students%}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>
+                                <a href="{% url 'studentMarks' student.student_id %}">
+                                    {{ student.student_id }}</td>
+                                </a>
+                            <td>{{ student.student_name }}</td>
+                            <td>{{ student.student_age }}</td>
+                            <td>{{ student.department.department }}</td>
+                            <td>{{ student.student_email }}</td>
+                        </tr>
+                    {% endfor%}
+                {% else %}
                     <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ student.student_id }}</td>
-                        <td>{{ student.student_name }}</td>
-                        <td>{{ student.student_age }}</td>
-                        <td>{{ student.department.department }}</td>
-                        <td>{{ student.student_email }}</td>
+                        <td colspan="6" class="text-center">No students found</td>
                     </tr>
-                {% endfor%}
+                {% endif %}
             </tbody>
         </table>
 

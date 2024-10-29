@@ -34,6 +34,7 @@ urlpatterns = [
     path('receipe/delete/<id>/', delete, name='deleteReceipe'),
     path('receipe/update/<id>/', update, name='updateReceipe'),
     path('students/', get_students, name='getStudent'),
+    path('student/marks/<student_id>', see_marks, name='studentMarks'),
 ]
 # For image
 if settings.DEBUG:
