@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+# Managers
+class StudentManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(id_deleted=False)
+
+# Models
 class Receipe(models.Model):
     user = models.ForeignKey(User, on_delete = models.SET_NULL, null = True, blank = True)
     receipe_name = models.CharField(max_length=100)
@@ -37,6 +43,10 @@ class Student(models.Model):
     student_email = models.EmailField(unique=True)
     student_age = models.IntegerField(default=18)
     student_address = models.TextField()
+    id_deleted = models.BooleanField(default=False)
+
+    objects = StudentManager()
+    admin_objects = models.Manager()
 
     def __str__(self) -> str:
         return self.student_name

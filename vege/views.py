@@ -95,6 +95,7 @@ def register(request):
 @login_required(login_url = "/login/")
 def get_students(request):
     students = Student.objects.all()
+    # students = Student.admin_objects.all() # for getting with trashed  students
     search = ''
     if(request.GET.get('search')):
         search = request.GET.get('search')
