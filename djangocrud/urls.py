@@ -36,6 +36,7 @@ urlpatterns = [
     
     path('students/', get_students, name='getStudent'),
     path('student/marks/<student_id>', see_marks, name='studentMarks'),
+    path('send_email', send_email, name='sendEmail'),
 ]
 # For image
 if settings.DEBUG:

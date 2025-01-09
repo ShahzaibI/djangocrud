@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Sum
+from home.utils import send_email_to_client
 # Create your views here.
 
 @login_required(login_url = "/login/")
@@ -106,7 +107,7 @@ def get_students(request):
             Q(student_email__icontains = search) |
             Q(student_age__icontains = search)
         )
-    paginator = Paginator(students, 5)
+    paginator = Paginator(students, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, 'report/students.html', {'students' : page_obj, 'search': search})
@@ -116,3 +117,8 @@ def see_marks(request, student_id):
     marks = SubjectMarks.objects.filter(student__student_id__student_id=student_id)
     total_marks = marks.aggregate(total_marks = Sum('marks'))
     return render(request, 'report/marks.html', {'marks': marks, 'total_marks': total_marks})
+
+@login_required(login_url = "/login/")
+def send_email(request):
+    send_email_to_client()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
