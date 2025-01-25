@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q, Sum
-from home.utils import send_email_to_client
+from home.utils import send_email_to_client, send_email_to_client_with_attachment
 # Create your views here.
 
 @login_required(login_url = "/login/")
@@ -121,4 +121,5 @@ def see_marks(request, student_id):
 @login_required(login_url = "/login/")
 def send_email(request):
     send_email_to_client()
+    send_email_to_client_with_attachment()
     return redirect(request.META.get('HTTP_REFERER', '/'))
