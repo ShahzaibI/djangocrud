@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from home.models import Car
+import random
 # Create your views here.
 
 def home(request):
+    Car.objects.create(car_name=f"Nexon-{random.randint(0, 100)}", speed=100)
     peoples = [
         {'name' : 'Muhammad Sarfraz', 'age' : 25},
         {'name' : 'Shahzaib Islam', 'age' : 22},
