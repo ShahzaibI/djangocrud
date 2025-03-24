@@ -82,10 +82,18 @@ WSGI_APPLICATION = 'djangocrud.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': '********',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
 }
 
 
@@ -135,3 +143,23 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Email backend settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# SMTP server settings
+EMAIL_HOST = 'smtp.gmail.com'  # SMTP server (e.g., Gmail)
+EMAIL_PORT = 587               # Port (587 for TLS, 465 for SSL)
+EMAIL_USE_TLS = True           # Use TLS (True for Gmail)
+EMAIL_USE_SSL = False          # Use SSL (if True, set EMAIL_PORT to 465)
+
+# Authentication credentials
+EMAIL_HOST_USER = 'shahzaibdev404@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = '***********' # Your email password or app password
+
+# Default "From" address
+DEFAULT_FROM_EMAIL = 'Your Project <your-email@example.com>'
+
+# Optional: Email timeout (in seconds)
+EMAIL_TIMEOUT = 30
